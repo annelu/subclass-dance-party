@@ -7,6 +7,7 @@
     <script src="src/dancer.js"></script>
     <script src="src/blinkyDancer.js"></script>
     <script src="src/colorDancer.js"></script>
+    <script src="src/spinnyDancer.js"></script>
   </head>
   <body>
 
@@ -14,6 +15,7 @@
       <span class="title">object dance party</span>
       <a href="#" class="addDancerButton" data-dancer-maker-function-name="BlinkyDancer">add a blinky dancer</a>
       <a href="#" class="addDancerButton" data-dancer-maker-function-name="ColorDancer">add a color dancer</a>
+      <a href="#" class="addDancerButton" data-dancer-maker-function-name="SpinnyDancer">add a spinny dancer</a>
     </div>
 
     <script>
@@ -58,11 +60,9 @@
 
 
         setInterval(function(){
-          console.log('changing color');
           var els = $('.colorDancer');
 
           $.each(els, function(idx, el){
-            console.log(changeColor());
             $(el).css('background', changeColor());
           });
 

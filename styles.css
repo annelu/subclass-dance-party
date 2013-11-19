@@ -35,3 +35,20 @@ body, a:link, a:visited, a:active{
 
   -webkit-transition: background-color:red 1000ms linear;
 }
+
+.spinnyDancer {
+  height: 20px;
+  width: 20px;
+  display: block;
+  background-color: blue;
+  position: absolute;
+  -webkit-animation-name: spin;
+  -webkit-animation-duration: 4000ms;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+}
+
+@-webkit-keyframes spin {
+  from {-webkit-transform: rotate(0deg);}
+  to {-webkit-transform: rotate(360deg);}
+}
