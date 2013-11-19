@@ -46,7 +46,28 @@
           );
 
           $('body').append(dancer.$node);
+
         });
+
+        var genNum = function(max) {
+          return Math.floor(Math.random() * max);
+        }
+        var changeColor = function() {
+          return "rgba(" + genNum(255) + "," + genNum(255) + "," + genNum(255) + ",1)";
+        };
+
+
+        setInterval(function(){
+          console.log('changing color');
+          var els = $('.colorDancer');
+
+          $.each(els, function(idx, el){
+            console.log(changeColor());
+            $(el).css('background', changeColor());
+          });
+
+        }, 1000);
+
       });
     </script>
 
