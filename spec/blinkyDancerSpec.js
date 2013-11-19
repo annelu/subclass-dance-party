@@ -7,16 +7,22 @@ describe("blinkyDancer", function() {
   beforeEach(function() {
     clock = sinon.useFakeTimers();
     blinkyDancer = new BlinkyDancer(10, 20, timeBetweenSteps);
+    colorDancer = new ColorDancer(10, 20, timeBetweenSteps);
   });
 
   it("should have a jQuery $node object", function(){
     expect(blinkyDancer.$node).to.be.an.instanceof(jQuery);
+    expect(colorDancer.$node).to.be.an.instanceof(jQuery);
   });
 
   it("should have a step function that makes its node blink", function() {
     sinon.spy(blinkyDancer.$node, 'toggle');
     blinkyDancer.step();
     expect(blinkyDancer.$node.toggle.called).to.be.true;
+
+    sinon.spy(colorDancer.$node, 'toggle');
+    colorDancer.step();
+    expect(colorDancer.$node.toggle.called).to.be.true;
   });
 
   describe("dance", function(){
@@ -30,6 +36,16 @@ describe("blinkyDancer", function() {
 
       clock.tick(timeBetweenSteps);
       expect(blinkyDancer.step.callCount).to.be.equal(2);
+
+      sinon.spy(colorDancer, "step");
+      expect(colorDancer.step.callCount).to.be.equal(0)
+      clock.tick(timeBetweenSteps);
+      // clock.tick(timeBetweenSteps);
+
+      expect(colorDancer.step.callCount).to.be.equal(1);
+
+      clock.tick(timeBetweenSteps);
+      expect(colorDancer.step.callCount).to.be.equal(2);
     });
   });
 });
