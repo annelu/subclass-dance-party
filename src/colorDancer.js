@@ -11,3 +11,7 @@ ColorDancer.prototype.step = function(timeBetweenSteps){
   Dancer.prototype.step.call(this, timeBetweenSteps);
   this.$node.toggle();
 };
+
+ColorDancer.prototype.lineup = function() {
+  this.$node.css('left', 0);
+}

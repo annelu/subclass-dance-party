@@ -16,11 +16,56 @@
       <a href="#" class="addDancerButton" data-dancer-maker-function-name="BlinkyDancer">add a blinky dancer</a>
       <a href="#" class="addDancerButton" data-dancer-maker-function-name="ColorDancer">add a color dancer</a>
       <a href="#" class="addDancerButton" data-dancer-maker-function-name="SpinnyDancer">add a spinny dancer</a>
+
+      <a href="#" class="lineUp">Line Up</a>
     </div>
 
     <script>
       $(document).ready(function(){
         window.dancers = [];
+
+        var curMousePos = {x: -1, y: -1};
+        var boundary = 40;
+
+        $(document).mousemove(function(event) {
+          curMousePos.x = event.pageX;
+          curMousePos.y = event.pageY;
+
+
+          for(var i = 0; i < window.dancers.length; i++) {
+            // window.dancers[i].lineup();
+            var dancer = window.dancers[i];
+            var pos = $(dancer.$node).position();
+            // if( (pos.left + boundary) < curMousePos.x ) {
+              // if( (curMousePos.x + boundary) < pos.left && curMousePos.x > pos.left) {
+            if((curMousePos.x - pos.left) < boundary && (curMousePos.y - pos.top) < boundary) {
+              if((curMousePos.x - pos.left) > 0 && (curMousePos.y - pos.top) > 0) {
+                $(dancer.$node).animate({left: "-=5"}, 100);
+                $(dancer.$node).animate({top: "+=5"}, 100);
+              }
+            } else {
+              $(dancer.$node).animate(null)
+            }
+
+            if((curMousePos.x - pos.left) > -boundary && (curMousePos.y - pos.top) < -boundary) {
+              if((curMousePos.x - pos.left) < 0 && (curMousePos.y - pos.top) < 0) {
+                $(dancer.$node).animate({left: "+=5"}, 100);
+                $(dancer.$node).animate({top: "-=5"}, 100);
+              }
+            } else {
+              $(dancer.$node).animate(null)
+            }
+
+          }
+        });
+
+        $('.lineUp').on('click', function(event) {
+          event.preventDefault();
+
+          for(var i = 0; i < window.dancers.length; i++) {
+            window.dancers[i].lineup();
+          }
+        });
 
         $(".addDancerButton").on("click", function(event){
           /* This function sets up the click handlers for the create-dancer
@@ -49,6 +94,28 @@
 
           $('body').append(dancer.$node);
 
+          // $(dancer.$node).on('mouseover', function() {
+          //   // $(this).css('top', Math.floor(Math.random() * 100) + '%');
+          //   // $(this).css('left', Math.floor(Math.random() * 100) + '%');
+          //   var pos = $(this).position();
+          //   if (curMousePos.x > (pos.left + 10)) {
+          //     // $(this).css('left', pos.left - 5);
+          //     $(this).animate({left: "-=5"}, 100);
+          //   } else {
+          //     // $(this).css('left', pos.left + 5);
+          //     $(this).animate({left: "+=5"}, 100);
+          //   }
+
+          //   if (curMousePos.y > (pos.top + 10)) {
+          //     // $(this).css('top', pos.top - 5);
+          //     $(this).animate({top: "-=5"}, 100);
+          //   } else {
+          //     // $(this).css('top', pos.top + 5);
+          //     $(this).animate({top: "+=5"}, 100);
+          //   }
+          // });
+
+          dancers.push(dancer);
         });
 
         var genNum = function(max) {
